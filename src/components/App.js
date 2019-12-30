@@ -1,9 +1,9 @@
 import React, {Component, useContext, useReducer} from 'react';
 import { Route } from 'react-router-dom'
 import { createGlobalStyle } from "styled-components";
+
 import TodosContext from './context';
-
-
+import todosReducer from './reducer';
 import ToDoList from  './ToDo/ToDoList';
 
 
@@ -16,13 +16,15 @@ const GlobalStyles = createGlobalStyle`
 
 const App = () => {
   const initialState = useContext(TodosContext)
-  const [state] = useReducer(initialState)
+  const [state, dispatch] = useReducer(todosReducer, initialState)
     return(
       <>
         <GlobalStyles />
-        <TodosContext.Provider value={{state}}>
-          <Route exact path="/" component={ToDoList} />
-        </TodosContext.Provider>
+          <Route exact path="/">
+            <TodosContext.Provider value={{state, dispatch}}>
+              <ToDoList />
+            </TodosContext.Provider>
+        </Route>
       </>
     )
   }

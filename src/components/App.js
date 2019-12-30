@@ -10,7 +10,23 @@ import ToDoList from  './ToDo/ToDoList';
 const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
   body {
-    font-family: 'Notable', sans-serif;
+    font-family: 'Roboto', sans-serif;
+  };
+  h1 {
+    font-size: 2.6rem;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid;
+    color: #9485d4;
+  }
+  h4 {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-bottom: 5px;
+    font-weight: normal;
+  };
+  span {
+    font-size: 1rem;
+    color: #cec8e8;
   }
 `
 

@@ -2,6 +2,7 @@ import React, { useContext } from 'react'; //in order to consume context need to
 import { Container, Col, Row } from 'styled-bootstrap-grid';
 import styled from 'styled-components';
 
+import AddToDo from "./AddToDo"
 import TodosContext from "../context"; //the actual data that will be consumed
 
 const StyledToDoListContainer= styled.div`
@@ -38,6 +39,7 @@ export default function TodoList() {
             <Col col={12}>
             <h1>To Do List</h1>
             <Spacing />
+            <AddToDo/>
             </Col>
             <Col col={12}>
             { state.todos.map(todo => (

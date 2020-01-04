@@ -5,14 +5,20 @@ import styled from 'styled-components';
 
 import TodosContext from "../context"; //the actual data that will be consumed
 
+const Spacing= styled.div`
+  margin: 10px;
+`;
+
 const CreateToDo = () => {
     // const { createTodo, setTodo } = useState([]);
     // const { state, dispatch } = useContext(TodosContext);
   return(
     <>
       <form>
-        <input placeholder='Title of to do'  />
-        <input placeholder='To do content '/>
+        <input type='text' placeholder='Title of to do'  />
+        <Spacing />
+        <input type='text' placeholder='To do content '/>
+        <Spacing />
         <input type='submit'/>
       </form>
     </>

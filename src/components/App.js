@@ -17,7 +17,7 @@ const GlobalStyles = createGlobalStyle`
   font-family: 'Roboto', sans-serif;
   };
   h1 {
-    font-size: 2.6rem;
+    font-size: 2.4rem;
     font-family: 'Roboto', sans-serif;
     letter-spacing: 0.05em;
     border-bottom: 2px solid;
@@ -53,17 +53,18 @@ const GlobalStyles = createGlobalStyle`
     text-transform: uppercase;
   }
   input[type="submit"] {
-    border: solid 2px #6d658f;
+    border: solid 1px white;
     border-radius: 3px;
     cursor: pointer;
-    color: #6d658f;
+    width: 100%;
+    color: white;
     background-color: transparent;
     padding: 5px;
     text-transform: uppercase;
   }
-  ul {
-    margin-block-start:0.5em;
-    margin-block-start:0.5em;
+  input[type="text"] {
+    width: 100%;
+    border-radius:3px;
   }
 `
 

@@ -13,6 +13,7 @@ const NavContainer=styled.div`
   width: 100%;
   height: 55px;
   background: #b5aed6;
+  z-index: 1000;
   border-bottom: 1px solid #b5aed6;
  `;
 

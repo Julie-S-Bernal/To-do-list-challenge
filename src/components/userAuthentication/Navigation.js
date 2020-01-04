@@ -36,7 +36,7 @@ const Navigation = (props) => {
     buttons = (
       <>
         <button className='register' onClick={() => props.history.push('/register')} >Register</button>
-        <button className='Login' onClick={() => props.history.push('login')}>Login</button>
+        <button className='Login' onClick={() => props.history.push('/login')}>Login</button>
       </>
     )
   }

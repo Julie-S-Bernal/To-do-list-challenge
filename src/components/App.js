@@ -11,9 +11,8 @@ import RegisterForm from './userAuthentication/RegisterForm';
 
 
 const GlobalStyles = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
   body {
-    font-family: 'Roboto', sans-serif;
+    
   };
   h1 {
     font-size: 2.6rem;

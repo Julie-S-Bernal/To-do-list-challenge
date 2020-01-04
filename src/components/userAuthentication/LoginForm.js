@@ -6,6 +6,7 @@ import { Container, Col, Row } from 'styled-bootstrap-grid';
 import firebaseConfig from '../firebaseConfig'
 
 
+// TODO extract to own const to avoid repetition or merge the two file and render depending type
 const FormWrapper=styled.div`
   max-width: 30%;
   min-width: 300px;
@@ -33,6 +34,8 @@ const FormWrapper=styled.div`
   }
   .button {
     width: 100%;
+    color: #8f2fde;
+    border: solid 1px #8f2fde;
   }
 `;
 
@@ -74,7 +77,7 @@ const Login = (props) => {
               <ButtonWrapper>
                 <input className='button' type='submit' value='login' />
               </ButtonWrapper>
-              {loginError && <span>Something went wrong! (╥_╥) </span>}
+              {loginError && <span> Something went wrong! (╥_╥) </span>}
             </form>
           </FormWrapper>
         </Col>

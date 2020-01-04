@@ -1,8 +1,6 @@
 import React from 'react'
 import formattedDate from './utils'
 
-
-
 const TodosContext = React.createContext({
     todos: [
      // use formattedDate util function to add the date creation

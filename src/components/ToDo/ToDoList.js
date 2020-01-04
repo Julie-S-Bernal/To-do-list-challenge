@@ -1,8 +1,10 @@
-import React, { useContext } from 'react'; //in order to consume context need to import useContext from React, don't forget!
+import React, { useContext } from 'react';
 import { Container, Col, Row } from 'styled-bootstrap-grid';
 import styled from 'styled-components';
 
-import TodosContext from "../context"; //the actual data that will be consumed
+import Navigation from '../userAuthentication/Navigation';
+import CreateToDo from './CreateToDo';
+import TodosContext from '../context';
 
 const StyledToDoListContainer= styled.div`
   align-items: center;
@@ -12,11 +14,12 @@ const StyledToDoListContainer= styled.div`
   padding: 40px;
   text-decoration: none;
   box-shadow: -20px -20px 0px 0px rgba(100,100,100, 0.1);
+  margin-top: 80px;
   `;
 
+//TO DO extract to own file to use around the app
 const Spacing= styled.div`
   margin: 10px;
-  background-color: red;
 `;
 
 const Separator = styled.div`
@@ -24,23 +27,37 @@ const Separator = styled.div`
   width: 100%;
   margin-top: 10px;
   height: 1px;
-`
+`;
+
 
 export default function TodoList() {
     const { state, dispatch } = useContext(TodosContext);
+
+    const todos = [
+      {id: 1, name: 'Cat', description: 'give medicine to cat'},
+      {id: 2, name: 'Self development', description: 'Finish AWS'},
+      {id: 3, name: 'Website', description: 'Redo a website from scratch'},
+      {id: 4, name: 'Groceries', description: 'Buy milk, eggs and olive oil'},
+     ];
+     console.log(todos)
   return(
-    <Container >
+    <Container>
+       <Row>
+        <Col col={12}>
+          <Navigation/>
+        </Col>
+      </Row>
       <Row>
-        <Col col={2} />
-        <Col col={6}>
-        <Row>
+        <Col col={2} hiddenXsDown={true}/>
+        <Col col={8} xs={12}>
           <StyledToDoListContainer>
             <Col col={12}>
             <h1>To Do List</h1>
             <Spacing />
+            <CreateToDo />
             </Col>
             <Col col={12}>
-            { state.todos.map(todo => (
+            { todos.map(todo => (
             <>
               <li style={{listStyleType: 'none'}} key={todo.id}>
                 <h4>
@@ -51,15 +68,13 @@ export default function TodoList() {
                 </span>
                 <Separator />
                 <Spacing />
-              {/* // use a date created */}
-              </li>
+               </li>
               </>
             ))}
             </Col>
           </StyledToDoListContainer>
-          </Row>
         </Col>
-        <Col size={2} />
+        <Col col={2} hiddenXsDown={true} />
       </Row>
     </Container>
   )

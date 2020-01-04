@@ -2,7 +2,7 @@ import React, { useContext } from 'react'; //in order to consume context need to
 import { Container, Col, Row } from 'styled-bootstrap-grid';
 import styled from 'styled-components';
 
-import AddToDo from "./AddToDo"
+import CreateToDo from "./CreateToDo"
 import TodosContext from "../context"; //the actual data that will be consumed
 
 const StyledToDoListContainer= styled.div`
@@ -27,8 +27,18 @@ const Separator = styled.div`
   height: 1px;
 `
 
+
+
 export default function TodoList() {
     const { state, dispatch } = useContext(TodosContext);
+
+    const todos = [
+      {id: 1, name: 'Cat', description: 'give medicine to cat'},
+      {id: 2, name: 'Self development', description: 'Finish AWS'},
+      {id: 3, name: 'Website', description: 'Redo a website from scratch'},
+      {id: 4, name: 'Groceries', description: 'Buy milk, eggs and olive oil'},
+     ]
+     console.log(todos)
   return(
     <Container >
       <Row>
@@ -39,10 +49,10 @@ export default function TodoList() {
             <Col col={12}>
             <h1>To Do List</h1>
             <Spacing />
-            <AddToDo/>
+            <CreateToDo/>
             </Col>
             <Col col={12}>
-            { state.todos.map(todo => (
+            { todos.map(todo => (
             <>
               <li style={{listStyleType: 'none'}} key={todo.id}>
                 <h4>
@@ -53,8 +63,7 @@ export default function TodoList() {
                 </span>
                 <Separator />
                 <Spacing />
-              {/* // use a date created */}
-              </li>
+               </li>
               </>
             ))}
             </Col>

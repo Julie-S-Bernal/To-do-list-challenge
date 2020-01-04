@@ -1,10 +1,11 @@
 import React, {Component, useContext, useReducer} from 'react';
-import { Route } from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
+import { Provider } from 'react-redux';
 import { createGlobalStyle } from "styled-components";
 
-import TodosContext from './context';
-import todosReducer from './reducer';
-import ToDoList from  './ToDo/ToDoList';
+import store from './store/store';
+import ToDoList from  './toDo/ToDoList';
+import LandingPage from './userAuthentication/LandingPage';
 
 
 const GlobalStyles = createGlobalStyle`
@@ -31,18 +32,22 @@ const GlobalStyles = createGlobalStyle`
 `
 
 const App = () => {
-  const initialState = useContext(TodosContext)
-  const [state, dispatch] = useReducer(todosReducer, initialState)
+  // const initialState = useContext(TodosContext)
+  // const [state, dispatch] = useReducer(todosReducer, initialState)
     return(
       <>
         <GlobalStyles />
-          <Route exact path="/">
-            <TodosContext.Provider value={{state, dispatch}}>
-              <ToDoList />
-            </TodosContext.Provider>
-        </Route>
-      </>
-    )
+        <Provider store={store}>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              {/* // Remember to use :username after todolist has a nice to have */}
+              <Route exact path="/ToDoList" component={ToDoList} />
+            </Switch>
+           </Router>
+          </Provider>
+        </>
+      )
   }
 
 export default App;

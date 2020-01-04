@@ -1,15 +1,16 @@
-import React, { useContext } from 'react'; //in order to consume context need to import useContext from React, don't forget!
+import React, { useContext } from 'react';
 import { Container, Col, Row } from 'styled-bootstrap-grid';
 import styled from 'styled-components';
 
-import CreateToDo from "./CreateToDo"
-import TodosContext from "../context"; //the actual data that will be consumed
+import Navigation from '../userAuthentication/Navigation';
+import CreateToDo from './CreateToDo';
+import TodosContext from '../context';
 
 const StyledToDoListContainer= styled.div`
   align-items: center;
   border-radius: 5px;
   background: #6d658f;
-  width: 100%;
+  // width: 100%;
   padding: 40px;
   text-decoration: none;
   box-shadow: -20px -20px 0px 0px rgba(100,100,100, 0.1);
@@ -17,7 +18,6 @@ const StyledToDoListContainer= styled.div`
 
 const Spacing= styled.div`
   margin: 10px;
-  background-color: red;
 `;
 
 const Separator = styled.div`
@@ -26,7 +26,6 @@ const Separator = styled.div`
   margin-top: 10px;
   height: 1px;
 `
-
 
 
 export default function TodoList() {
@@ -42,9 +41,13 @@ export default function TodoList() {
   return(
     <Container >
       <Row>
-        <Col col={2} />
-        <Col col={6}>
-        <Row>
+        <Col col={12}>
+          <Navigation/>
+        </Col>
+      </Row>
+      <Row>
+        <Col col={2} hiddenXsDown={true}/>
+        <Col col={8} xs={12}>
           <StyledToDoListContainer>
             <Col col={12}>
             <h1>To Do List</h1>
@@ -68,9 +71,8 @@ export default function TodoList() {
             ))}
             </Col>
           </StyledToDoListContainer>
-          </Row>
         </Col>
-        <Col size={2} />
+        <Col col={2} hiddenXsDown={true} />
       </Row>
     </Container>
   )

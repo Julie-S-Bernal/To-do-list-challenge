@@ -5,8 +5,16 @@ import {withRouter} from 'react-router-dom';
 
 import firebaseConfig from '../firebaseConfig'
 
+
 const NavContainer=styled.div`
-`;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 55px;
+  background: #b5aed6;
+  border-bottom: 1px solid #b5aed6;
+ `;
 
 // Rename this component to a better name like UserAuthenticationForms or something like that
 const Navigation = (props) => {
@@ -26,27 +34,21 @@ const Navigation = (props) => {
     props.history.replace('/login');
   }
 
-    let buttons;
+  let logoutbutton;
 
   if (userState != null) {
-    buttons = (
+    logoutbutton = (
       <button className='logout' onClick={logout}>Logout</button>
     )
   } else {
-    buttons = (
-      <>
-        <button className='register' onClick={() => props.history.push('/register')} >Register</button>
-        <button className='Login' onClick={() => props.history.push('/login')}>Login</button>
-      </>
-    )
+    return null;
   }
 
   return(
   <NavContainer>
-      <h1> I render too</h1>
     <nav>
       <ul>
-        {buttons}
+        {logoutbutton}
       </ul>
     </nav>
   </NavContainer>

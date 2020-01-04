@@ -74,7 +74,7 @@ const RegisterForm = (props) => {
       setRegisterError(true)
     }
     if(response.hasOwnProperty('user')){
-      props.history.push('/')
+      props.history.push('/to-do-list')
     }
   }
 

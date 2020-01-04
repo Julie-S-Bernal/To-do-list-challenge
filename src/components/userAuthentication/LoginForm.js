@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Container, Col, Row } from 'styled-bootstrap-grid';
 
-import firebaseConfig from '../../firebaseConfig'
+import firebaseConfig from '../firebaseConfig'
 
 
 const FormWrapper=styled.div`

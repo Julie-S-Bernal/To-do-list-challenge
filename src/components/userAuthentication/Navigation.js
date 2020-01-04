@@ -46,7 +46,7 @@ const Navigation = (props) => {
       <h1> I render too</h1>
     <nav>
       <ul>
-        {/* {buttons} */}
+        {buttons}
       </ul>
     </nav>
   </NavContainer>

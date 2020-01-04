@@ -1,51 +1,104 @@
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/storage';
+import React, {useState} from 'react';
+import {withRouter} from 'react-router-dom';
+import styled from 'styled-components';
+import { Container, Col, Row } from 'styled-bootstrap-grid';
 
-const configuration = {
-    apiKey: "AIzaSyDEi2b7Lshaz7aQQuMX7m1LKPi7m6CAXY0",
-    authDomain: "market-research-survey.firebaseapp.com",
-    databaseURL: "https://market-research-survey.firebaseio.com",
-    projectId: "market-research-survey",
-    storageBucket: "gs://market-research-survey.appspot.com",
-    messagingSenderId: "315493474655",
-    appId: "1:315493474655:web:97b8202626a97c977696ea",
-    measurementId: "G-2YDNH7FD10"
-};
+import firebaseConfig from '../firebaseConfig'
 
-class FirebaseConfig{
-    constructor(){
-        firebase.initializeApp(configuration);
-        this.auth = firebase.auth();
-        this.firestore = firebase.firestore();
+const FormWrapper=styled.div`
+  max-width: 30%;
+  min-width: 300px;
+  padding: 50px 30px 50px 30px;
+  margin: 50px auto;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07);
+  background: rgba(255,255,255,0.4);
+  border-bottom: 1px solid rgba(225,225,225,0.5);
+  z-index: 1000;
+
+  .formInput{
+    position: relative;
+    padding: 12px 0px 5px 0;
+    width: 100%;
+    outline: 0;
+    border: 0;
+    box-shadow: 0 1px 0 0 #e5e5e5;
+    transition: box-shadow 150ms ease-out;
+
+    &:focus {
+    box-shadow: 0 2px 0 0 blue;
     }
+  }
 
-    async register(email,password){
-        const user = await firebase.auth().createUserWithEmailAndPassword(email, password).catch(error => {
-          console.log(error);
-        });
-        return user;
+  .button {
+    box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
+    height: 35px;
+    width: 100px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    background: rgba(59,173,227,1);
+    background: linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+    font-size: 12px;
+    border: none;
+    margin-left: 10px;
+    border-radius: 3px;
+    text-align: center;
+
+    span {
+      position: relative;
+      top: 16px;
     }
+  }
+`;
 
-    async login(email,password){
-        const user = await firebase.auth().signInWithEmailAndPassword(email, password)
-        .catch(error => {
-            console.log(error);
-        });
-        return user;
+const ButtonWrapper=styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+`
+
+const RegisterForm = (props) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [registerError, setRegisterError] = useState(false);
+
+  const register = async(event) => {
+    event.preventDefault();
+    let response = await firebaseConfig.register(email, password)
+    if(response.hasOwnProperty('message')){
+      setRegisterError(true)
     }
-
-    async getUser(){
-    return new Promise(resolve =>{
-        this.auth.onAuthStateChanged(resolve);
-    })};
-
-    async logout(){
-        await firebase.auth().signOut().catch(error => {
-            console.log(error);
-        });
+    if(response.hasOwnProperty('user')){
+      props.history.push('/')
     }
+  }
+
+  return (
+    <Container>
+      <Row>
+        <Col col={12}>
+          <FormWrapper>
+            <form onSubmit={register}>
+              <h3 style={{textAlign: 'center'}}>Create your account</h3>
+              <label htmlFor='email'>Email: </label>
+              <input className='formInput' type="email" name='email' onChange={(event) => setEmail(event.target.value)} ></input>
+              <label htmlFor='email'>Password: </label>
+              <input className='formInput' type="password" name='password' onChange={(event) => setPassword(event.target.value)} ></input>
+              <ButtonWrapper>
+                <input className='button' type='submit' value='register' />
+              </ButtonWrapper>
+              {registerError && <span>You could not be registered, try again! (╥_╥)</span>}
+            </form>
+          </FormWrapper>
+       </Col>
+      </Row>
+    </Container>
+  )
 }
-
-export default new FirebaseConfig();
+export default withRouter(RegisterForm);

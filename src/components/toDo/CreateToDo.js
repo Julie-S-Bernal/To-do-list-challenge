@@ -17,20 +17,20 @@ const CreateToDo = () => {
   //may need an id
 
     const dispatch= useDispatch();
-    const ACTION_createToDo = (toDo) => dispatch(createToDo(toDo))
+    const ACTION_CREATE_TO_DO = (toDo) => dispatch(createToDo(toDo))
 
     const createNewToDo = async(e) => {
+      console.log('i am here')
       e.preventDefault();
       let toDo = {
-        id: 234324,
         name,
-        creationDate: moment(),
+        creationDate: moment().toDate(),
         description,
       }
-      await ACTION_createToDo(toDo)
-      console.log(' I have been sent');
+      debugger;
+      await ACTION_CREATE_TO_DO(toDo)
     }
-    const [value, setValue] = useState("");
+
 
   return(
     <>
@@ -40,7 +40,7 @@ const CreateToDo = () => {
         className='input'
         // value={name}
         placeholder='Add a new task'
-        onChange={e => setValue(e.target.value)}
+        onChange={e => setName(e.target.value)}
       />
         <Spacing />
         <input
@@ -48,7 +48,7 @@ const CreateToDo = () => {
           className='input'
           // value={description}
           placeholder='Add a description'
-          onChange={e => setValue(e.target.value)}
+          onChange={e => setDescription(e.target.value)}
         />
         <Spacing />
         <input type='submit'/>

@@ -1,12 +1,11 @@
 import firebaseConfig from '../firebaseConfig';
+import { firestore } from 'firebase';
 
 
-export const createToDo = (id, name, description, creationDate) => {
-
+export const createToDo = (toDo) => {
     return async function(dispatch){
-        const toDo = await firebaseConfig.createToDo(id, name, description, creationDate);
-        dispatch({type: "CREATE_TO_DO", payload: toDo});
-
+        const storeToDo = await firebaseConfig.createToDo(toDo);
+        dispatch({type: "CREATE_TO_DO", payload: storeToDo});
     }
 
 }

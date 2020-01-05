@@ -1,12 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container, Col, Row } from 'styled-bootstrap-grid';
 import styled from 'styled-components';
 import {useSelector, useDispatch } from 'react-redux';
 
-import Navigation from '../userAuthentication/Navigation';
-import CreateToDo from './CreateToDo';
+
 import { getToDos } from '../actions/getToDos';
 import{ formattedDate } from '../dateUtil';
+import { getToDo } from '../actions/getToDo';
+import { updateToDos } from '../actions/updateToDos';
+import { deleteToDos } from '../actions/deleteToDos';
+
+import Navigation from '../userAuthentication/Navigation';
+import CreateToDo from './CreateToDo';
+
 
 
 const StyledToDoListContainer= styled.div`
@@ -35,9 +41,12 @@ const Separator = styled.div`
 
 export default function TodoList() {
   const getToDosSelector = useSelector((state)=> state.getToDos)
+  const [showModal, hideModal] = useState(false);
   console.log(getToDosSelector)
   const dispatch = useDispatch()
   const GET_TO_DOS_ACTION = () => dispatch(getToDos())
+
+  const updatetedToDo = asu
 
      useEffect(() => {
       GET_TO_DOS_ACTION();
@@ -57,7 +66,12 @@ export default function TodoList() {
             <Col col={12}>
               <h1>To Do List</h1>
               <Spacing />
+              {
+              !showModal ?
               <CreateToDo />
+              :
+              <UpdateToDo />
+              }
             </Col>
             <Col col={12}>
             { getToDosSelector && getToDosSelector.toDos.map(todo => (
@@ -69,8 +83,15 @@ export default function TodoList() {
                 <Col col={6}>
                   <h4>{formattedDate(todo.data.creationDate)}</h4>
                 </Col>
+                <Col col={6}>
+                <span>{todo.data.description}</span>
+                </Col>
+                <Col col={6}>
+                  {/* TO DO replace with icon image to make it less heavy */}
+                <button style={{borderColor:'white', color:'white'}}> update</button>
+                <button style={{borderColor:'white', color:'white'}}>Delete</button>
+                </Col>
                 <Col col={12}>
-                  <span>{todo.data.description}</span>
                   <Separator />
                 </Col>
               </Row>

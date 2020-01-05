@@ -28,7 +28,7 @@ const GlobalStyles = createGlobalStyle`
     font-size: 1.4rem;
     font-family: 'Roboto', sans-serif;
     letter-spacing: 0.05em;
-    color: #9485d4;
+    color: #cec2ff;
   }
 
   h4 {

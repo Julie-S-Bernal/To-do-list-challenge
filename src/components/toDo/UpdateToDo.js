@@ -17,43 +17,43 @@ const CreateToDo = () => {
   const [description, setDescription] = useState("");
 
     const dispatch= useDispatch();
-    const ACTION_CREATE_TO_DO = (toDo) => dispatch(createToDo(toDo))
+    const ACTION_UPDATE_TO_DO = (toDo) => dispatch(updateToDo(toDo))
 
-    const createNewToDo = async(e) => {
+    const updateToDo = async(e) => {
       e.preventDefault();
-      console.log(uuid());
       let toDo = {
-        id: uuid(),
         name,
         creationDate: moment().toDate(),
         description,
       }
       debugger;
-      await ACTION_CREATE_TO_DO(toDo)
+      await ACTION_UPDATE_TO_DO(toDo)
     }
 
 
   return(
     <>
-      <form onSubmit={createNewToDo}>
-        <h3>Create to do</h3>
+      <form onSubmit={updateToDo}>
+        <h3>Updata To Do</h3>
         <input
           type='text'
           className='input'
           // value={name}
-          placeholder='Add a new task'
+          //place previous value here
+          placeholder=''
           onChange={e => setName(e.target.value)}
         />
-          <Spacing />
-          <input
-            type='text'
-            className='input'
-            // value={description}
-            placeholder='Add a description'
-            onChange={e => setDescription(e.target.value)}
-          />
-          <Spacing />
-          <input type='submit'/>
+        <Spacing />
+        <input
+          type='text'
+          className='input'
+          // value={description}
+           //place previous value here
+          placeholder=''
+          onChange={e => setDescription(e.target.value)}
+        />
+        <Spacing />
+        <input type='submit'/>
       </form>
     </>
   )

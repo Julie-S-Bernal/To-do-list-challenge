@@ -45,6 +45,55 @@ class FirebaseConfig{
             console.log(error);
         });
     }
+
+    async createToDo(toDo){
+        let newToDo = {
+            id: toDo.id,
+            title: toDo.name,
+            description: toDo.description,
+            creationDate: toDo.creationDate,
+        }
+        const createdToDo = await firebase.firestore().collection('todos').add(newToDo).catch(error => {
+          console.log(error);
+        });
+        return createdToDo;
+        }
+
+    async getToDos(){
+        let getToDoItems = [];
+        const toDos = await firebase.firestore().collection('todos').get()
+        toDos.forEach(item => {
+            getToDoItems.push({id:item.id, data:item.data() });
+        })
+        return getToDoItems;
+    }
+
+    async getToDo(toDoId){
+        const toDo = await firebase.firestore().collection('todos').doc([toDoId].get());
+        const toDoItem = toDo.data();
+        return toDoItem;
+    }
+
+    async updateToDo(toDoId, toDoData){
+        let updateToDo = {
+          id: toDoData.id,
+          title: toDoData.name,
+          description: toDoData.description,
+          creationDate: toDoData.creationDate,
+        }
+        const updatedToDo = await firebase.firestore().collection('todos').doc(toDoId)
+         .set(updateToDo, {merge: true}).catch(err => console.log(err));
+         console.log('I am updated')
+         return updatedToDo;
+    }
+
+    async deleteToDo(toDoId){
+       const deletedTodo = await firebase.firestore().collection('todos').doc(toDoId).delete().catch(err =>{
+           console.log(err);
+       })
+       console.log('worked')
+       return deletedTodo;
+    }
 }
 
 export default new FirebaseConfig();

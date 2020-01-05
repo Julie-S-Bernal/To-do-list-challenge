@@ -45,6 +45,24 @@ class FirebaseConfig{
             console.log(error);
         });
     }
-}
+
+    async createToDo(toDo){
+        const storage = firebase.storage().ref();
+        //JB might need to update that for it to work
+        // const storageChild = storage.child(toDo.info.name);
+        // const postInfo =  await storageChild.post(toDo.info);
+        // const reference = postInfo.ref.location.path;
+        let newToDo = {
+            id: toDo.id,
+            title: toDo.name,
+            description: toDo.description,
+            creationDate: toDo.creationDate,
+        }
+        const firebaseToDo = await firebase.firestore().collection('todos').add(newToDo).catch(error => {
+          console.log(error);
+        });
+        return firebaseToDo;
+        }
+    }
 
 export default new FirebaseConfig();

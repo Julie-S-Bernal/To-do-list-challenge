@@ -1,10 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Container, Col, Row } from 'styled-bootstrap-grid';
 import styled from 'styled-components';
+import {useSelector, useDispatch } from 'react-redux';
 
 import Navigation from '../userAuthentication/Navigation';
 import CreateToDo from './CreateToDo';
-import TodosContext from '../context';
+import { getToDos } from '../actions/getToDos';
+import{ formattedDate } from '../dateUtil';
+
 
 const StyledToDoListContainer= styled.div`
   align-items: center;
@@ -31,18 +34,18 @@ const Separator = styled.div`
 
 
 export default function TodoList() {
-    const { state, dispatch } = useContext(TodosContext);
+  const getToDosSelector = useSelector((state)=> state.getToDos)
+  console.log(getToDosSelector)
+  const dispatch = useDispatch()
+  const GET_TO_DOS_ACTION = () => dispatch(getToDos())
 
-    const todos = [
-      {id: 1, name: 'Cat', description: 'give medicine to cat'},
-      {id: 2, name: 'Self development', description: 'Finish AWS'},
-      {id: 3, name: 'Website', description: 'Redo a website from scratch'},
-      {id: 4, name: 'Groceries', description: 'Buy milk, eggs and olive oil'},
-     ];
-     console.log(todos)
+     useEffect(() => {
+      GET_TO_DOS_ACTION();
+      // need to listen to change of state here
+    },[]);
   return(
     <Container>
-       <Row>
+      <Row>
         <Col col={12}>
           <Navigation/>
         </Col>
@@ -52,24 +55,26 @@ export default function TodoList() {
         <Col col={8} xs={12}>
           <StyledToDoListContainer>
             <Col col={12}>
-            <h1>To Do List</h1>
-            <Spacing />
-            <CreateToDo />
+              <h1>To Do List</h1>
+              <Spacing />
+              <CreateToDo />
             </Col>
             <Col col={12}>
-            { todos.map(todo => (
+            { getToDosSelector && getToDosSelector.toDos.map(todo => (
             <>
-              <li style={{listStyleType: 'none'}} key={todo.id}>
-                <h4>
-                  {todo.name}
-                </h4>
-                <span>
-                  {todo.description}
-                </span>
-                <Separator />
-                <Spacing />
-               </li>
-              </>
+              <Row>
+                <Col col={6}>
+                  <h4>{todo.data.title}</h4>
+                </Col>
+                <Col col={6}>
+                  <h4>{formattedDate(todo.data.creationDate)}</h4>
+                </Col>
+                <Col col={12}>
+                  <span>{todo.data.description}</span>
+                  <Separator />
+                </Col>
+              </Row>
+            </>
             ))}
             </Col>
           </StyledToDoListContainer>

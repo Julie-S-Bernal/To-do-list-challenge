@@ -1,5 +1,4 @@
 import firebaseConfig from '../firebaseConfig';
-import { firestore } from 'firebase';
 
 
 export const createToDo = (toDo) => {

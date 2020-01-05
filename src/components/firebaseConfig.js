@@ -53,27 +53,47 @@ class FirebaseConfig{
             description: toDo.description,
             creationDate: toDo.creationDate,
         }
-        debugger;
-        const firebaseToDo = await firebase.firestore().collection('todos').add(newToDo).catch(error => {
+        const createdToDo = await firebase.firestore().collection('todos').add(newToDo).catch(error => {
           console.log(error);
         });
-        return firebaseToDo;
+        return createdToDo;
         }
 
     async getToDos(){
-        let toDoItems = [];
+        let getToDoItems = [];
         const toDos = await firebase.firestore().collection('todos').get()
         toDos.forEach(item => {
-            toDoItems.push({id:item.id, data:item.data() });
+            getToDoItems.push({id:item.id, data:item.data() });
         })
-        return toDoItems;
+        return getToDoItems;
     }
 
-    // async getToDo(toDoId){
-    //     const toDo = await firebase.firestore().collection('todos').doc([toDoId].get());
-    //     const toDoItem = toDo.data();
-    //     return toDoItem;
-    // }
+    async getToDo(toDoId){
+        const toDo = await firebase.firestore().collection('todos').doc([toDoId].get());
+        const toDoItem = toDo.data();
+        return toDoItem;
+    }
+
+    async updateToDo(toDoId, toDoData){
+        let updateToDo = {
+          id: toDoData.id,
+          title: toDoData.name,
+          description: toDoData.description,
+          creationDate: toDoData.creationDate,
+        }
+        const updatedToDo = await firebase.firestore().collection('todos').doc(toDoId)
+         .set(updateToDo, {merge: true}).catch(err => console.log(err));
+         console.log('I am updated')
+         return updatedToDo;
+    }
+
+    async deleteToDo(toDoId){
+       const deletedTodo = await firebase.firestore().collection('todos').doc(toDoId).delete().catch(err =>{
+           console.log(err);
+       })
+       console.log('worked')
+       return deletedTodo;
+    }
 }
 
 export default new FirebaseConfig();

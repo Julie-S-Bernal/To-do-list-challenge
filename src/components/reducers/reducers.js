@@ -5,7 +5,9 @@ import loginUser from './loginUser';
 import logoutUser from './logoutUser';
 import createToDo from './createToDo';
 import getToDos from './getToDos';
-// import getToDo from './getToDo';
+import getToDo from './getToDo';
+import updateToDo from './updateToDo';
+import deleteToDo from './deleteToDo';
 
 
 const reducers = combineReducers({
@@ -14,6 +16,10 @@ const reducers = combineReducers({
   logoutUser: logoutUser,
   createToDo: createToDo,
   getToDos: getToDos,
+  getToDo: getToDo,
+  updateToDo: updateToDo,
+  deleteToDo: deleteToDo,
+
   // getToDo: getToDo
 });
 

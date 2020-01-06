@@ -7,11 +7,12 @@ import {useSelector, useDispatch } from 'react-redux';
 import { getToDos } from '../actions/getToDos';
 import{ formattedDate } from '../dateUtil';
 import { getToDo } from '../actions/getToDo';
-import { updateToDos } from '../actions/updateToDos';
-import { deleteToDos } from '../actions/deleteToDos';
+import { updateToDo } from '../actions/updateToDo';
+import { deleteToDo} from '../actions/deleteToDo';
 
 import Navigation from '../userAuthentication/Navigation';
 import CreateToDo from './CreateToDo';
+import UpdateToDo from './UpdateToDo';
 
 
 
@@ -41,15 +42,39 @@ const Separator = styled.div`
 
 export default function TodoList() {
   const getToDosSelector = useSelector((state)=> state.getToDos)
-  const [showModal, hideModal] = useState(false);
-  console.log(getToDosSelector)
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch()
   const GET_TO_DOS_ACTION = () => dispatch(getToDos())
+  const DELETE_TO_DO_ACTION = (toDoId) => dispatch(deleteToDo(toDoId));
 
-  const updatetedToDo = asu
+  const  showUpdateForm = async(e) => {
+    setShowModal(true);
+  }
 
+  const ACTION_UPDATE_TO_DO = (toDoId, toDo) => dispatch(updateToDo(toDoId, toDo));
+
+  const updateSelectedToDo = async(e) => {
+    e.preventDefault();
+    let toDo = {
+      id: toDoId,
+      creationDate: moment().toDate(),
+      description,
+    }
+    await ACTION_UPDATE_TO_DO(toDoId, toDo)
+  }
+
+  const deleteSelectedToDo = async(toDoId) =>{
+  setShowModal()
+  await DELETE_TO_DO_ACTION(toDoId);
+
+}
      useEffect(() => {
       GET_TO_DOS_ACTION();
+      // need to listen to change of state here
+    },[]);
+
+    useEffect(() => {
+      DELETE_TO_DO_ACTION();
       // need to listen to change of state here
     },[]);
   return(
@@ -70,7 +95,9 @@ export default function TodoList() {
               !showModal ?
               <CreateToDo />
               :
-              <UpdateToDo />
+              <UpdateToDo
+                updateSelectedToDo={this.updateSelectedToDo(toDoId,toDo)}
+              />
               }
             </Col>
             <Col col={12}>
@@ -88,8 +115,8 @@ export default function TodoList() {
                 </Col>
                 <Col col={6}>
                   {/* TO DO replace with icon image to make it less heavy */}
-                <button style={{borderColor:'white', color:'white'}}> update</button>
-                <button style={{borderColor:'white', color:'white'}}>Delete</button>
+                <button style={{borderColor:'white', color:'white'}} onClick={showUpdateForm}> update</button>
+                <button style={{borderColor:'white', color:'white'}} onClick={() => deleteSelectedToDo(todo.id)}>Delete</button>
                 </Col>
                 <Col col={12}>
                   <Separator />

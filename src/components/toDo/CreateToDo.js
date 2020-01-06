@@ -28,7 +28,6 @@ const CreateToDo = () => {
         creationDate: moment().toDate(),
         description,
       }
-      debugger;
       await ACTION_CREATE_TO_DO(toDo)
     }
 

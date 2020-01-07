@@ -56,6 +56,7 @@ class FirebaseConfig{
         const createdToDo = await firebase.firestore().collection('todos').add(newToDo).catch(error => {
           console.log(error);
         });
+        console.log('I am created')
         return createdToDo;
         }
 

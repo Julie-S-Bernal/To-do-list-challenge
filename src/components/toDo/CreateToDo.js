@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Container, Col, Row } from 'styled-bootstrap-grid';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
@@ -15,6 +15,7 @@ const Spacing= styled.div`
 const CreateToDo = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [toDo, setToDo] = useState();
 
     const dispatch= useDispatch();
     const ACTION_CREATE_TO_DO = (toDo) => dispatch(createToDo(toDo))
@@ -28,10 +29,13 @@ const CreateToDo = () => {
         creationDate: moment().toDate(),
         description,
       }
+      setToDo(toDo)
       await ACTION_CREATE_TO_DO(toDo)
     }
 
+    useEffect(()=>{
 
+    },[toDo])
   return(
     <>
       <form onSubmit={createNewToDo}>

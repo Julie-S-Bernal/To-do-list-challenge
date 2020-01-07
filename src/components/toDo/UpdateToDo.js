@@ -16,18 +16,18 @@ const UpdateToDo = () => {
     const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
-    // const dispatch= useDispatch();
-    // const ACTION_UPDATE_TO_DO = (toDoId, toDo) => dispatch(updateToDo(toDoId, toDo));
+    const dispatch= useDispatch();
+    const ACTION_UPDATE_TO_DO = (toDoId, toDo) => dispatch(updateToDo(toDoId, toDo));
 
-    // const updateSelectedToDo = async(e) => {
-    //   e.preventDefault();
-    //   let toDo = {
-    //     id: toDoId,
-    //     creationDate: moment().toDate(),
-    //     description,
-    //   }
-    //   await ACTION_UPDATE_TO_DO(toDoId, toDo)
-    // }
+    const updateSelectedToDo = async(e) => {
+      e.preventDefault();
+      let toDo = {
+        id: toDoId,
+        creationDate: moment().toDate(),
+        description,
+      }
+      await ACTION_UPDATE_TO_DO(toDoId, toDo)
+    }
 
   return(
     <>

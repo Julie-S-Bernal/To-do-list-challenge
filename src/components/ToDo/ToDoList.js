@@ -6,8 +6,6 @@ import {useSelector, useDispatch } from 'react-redux';
 
 import { getToDos } from '../actions/getToDos';
 import{ formattedDate } from '../dateUtil';
-import { getToDo } from '../actions/getToDo';
-import { updateToDo } from '../actions/updateToDo';
 import { deleteToDo} from '../actions/deleteToDo';
 
 import Navigation from '../userAuthentication/Navigation';
@@ -41,42 +39,27 @@ const Separator = styled.div`
 
 
 export default function TodoList() {
+
   const getToDosSelector = useSelector((state)=> state.getToDos)
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch()
   const GET_TO_DOS_ACTION = () => dispatch(getToDos())
   const DELETE_TO_DO_ACTION = (toDoId) => dispatch(deleteToDo(toDoId));
 
-  const  showUpdateForm = async(e) => {
+  const showUpdateForm = async(e) => {
     setShowModal(true);
-  }
-
-  const ACTION_UPDATE_TO_DO = (toDoId, toDo) => dispatch(updateToDo(toDoId, toDo));
-
-  const updateSelectedToDo = async(e) => {
-    e.preventDefault();
-    let toDo = {
-      id: toDoId,
-      creationDate: moment().toDate(),
-      description,
-    }
-    await ACTION_UPDATE_TO_DO(toDoId, toDo)
   }
 
   const deleteSelectedToDo = async(toDoId) =>{
   setShowModal()
   await DELETE_TO_DO_ACTION(toDoId);
-
 }
-     useEffect(() => {
-      GET_TO_DOS_ACTION();
-      // need to listen to change of state here
-    },[]);
 
-    useEffect(() => {
-      DELETE_TO_DO_ACTION();
-      // need to listen to change of state here
-    },[]);
+  useEffect(() => {
+    GET_TO_DOS_ACTION()
+    // need to triger re-render when array is updated
+  },[])
+
   return(
     <Container>
       <Row>
@@ -95,9 +78,7 @@ export default function TodoList() {
               !showModal ?
               <CreateToDo />
               :
-              <UpdateToDo
-                updateSelectedToDo={this.updateSelectedToDo(toDoId,toDo)}
-              />
+              <UpdateToDo/>
               }
             </Col>
             <Col col={12}>

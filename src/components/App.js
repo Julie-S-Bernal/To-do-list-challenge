@@ -69,8 +69,7 @@ const GlobalStyles = createGlobalStyle`
 `
 
 const App = () => {
-  // const initialState = useContext(TodosContext)
-  // const [state, dispatch] = useReducer(todosReducer, initialState)
+
     return(
       <>
         <GlobalStyles />

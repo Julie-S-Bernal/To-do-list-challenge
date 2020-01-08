@@ -3,16 +3,13 @@ import { Container, Col, Row } from 'styled-bootstrap-grid';
 import styled from 'styled-components';
 import {useSelector, useDispatch } from 'react-redux';
 
-
 import { getToDos } from '../actions/getToDos';
 import{ formattedDate } from '../dateUtil';
-import { getToDo } from '../actions/getToDo';
-import { updateToDos } from '../actions/updateToDos';
-import { deleteToDos } from '../actions/deleteToDos';
+import { deleteToDo} from '../actions/deleteToDo';
 
 import Navigation from '../userAuthentication/Navigation';
 import CreateToDo from './CreateToDo';
-
+import UpdateToDo from './UpdateToDo';
 
 
 const StyledToDoListContainer= styled.div`
@@ -41,17 +38,25 @@ const Separator = styled.div`
 
 export default function TodoList() {
   const getToDosSelector = useSelector((state)=> state.getToDos)
-  const [showModal, hideModal] = useState(false);
-  console.log(getToDosSelector)
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch()
   const GET_TO_DOS_ACTION = () => dispatch(getToDos())
+  const DELETE_TO_DO_ACTION = (toDoId) => dispatch(deleteToDo(toDoId));
 
-  const updatetedToDo = asu
+  const showUpdateForm = async(e) => {
+    setShowModal(true);
+  }
 
-     useEffect(() => {
-      GET_TO_DOS_ACTION();
-      // need to listen to change of state here
-    },[]);
+  const deleteSelectedToDo = async(toDoId) =>{
+    setShowModal()
+    await DELETE_TO_DO_ACTION(toDoId);
+    GET_TO_DOS_ACTION()
+}
+
+  useEffect(() => {
+    GET_TO_DOS_ACTION()
+  },[])
+
   return(
     <Container>
       <Row>
@@ -70,7 +75,7 @@ export default function TodoList() {
               !showModal ?
               <CreateToDo />
               :
-              <UpdateToDo />
+              <UpdateToDo/>
               }
             </Col>
             <Col col={12}>
@@ -88,8 +93,8 @@ export default function TodoList() {
                 </Col>
                 <Col col={6}>
                   {/* TO DO replace with icon image to make it less heavy */}
-                <button style={{borderColor:'white', color:'white'}}> update</button>
-                <button style={{borderColor:'white', color:'white'}}>Delete</button>
+                <button style={{borderColor:'white', color:'white'}} onClick={showUpdateForm}> update</button>
+                <button style={{borderColor:'white', color:'white'}} onClick={() => deleteSelectedToDo(todo.id)}>Delete</button>
                 </Col>
                 <Col col={12}>
                   <Separator />

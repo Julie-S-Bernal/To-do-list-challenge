@@ -56,6 +56,7 @@ class FirebaseConfig{
         const createdToDo = await firebase.firestore().collection('todos').add(newToDo).catch(error => {
           console.log(error);
         });
+        console.log('I am created')
         return createdToDo;
         }
 
@@ -91,7 +92,6 @@ class FirebaseConfig{
        const deletedTodo = await firebase.firestore().collection('todos').doc(toDoId).delete().catch(err =>{
            console.log(err);
        })
-       console.log('worked')
        return deletedTodo;
     }
 }

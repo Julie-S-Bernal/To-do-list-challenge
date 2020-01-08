@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Container, Col, Row } from 'styled-bootstrap-grid';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 
 import { createToDo } from '../actions/createToDo';
+import { getToDos } from '../actions/getToDos';
 //Added in case per exercice but I technically already have an id  because of the type of database I have
 import uuid from 'uuid/v4';
 
@@ -15,23 +16,26 @@ const Spacing= styled.div`
 const CreateToDo = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-
-    const dispatch= useDispatch();
-    const ACTION_CREATE_TO_DO = (toDo) => dispatch(createToDo(toDo))
+  const [toDo, setToDo] = useState();
+  const dispatch= useDispatch();
+  const ACTION_CREATE_TO_DO = (toDo) => dispatch(createToDo(toDo))
+  const GET_TO_DOS_ACTION = () => dispatch(getToDos())
 
     const createNewToDo = async(e) => {
       e.preventDefault();
-      console.log(uuid());
       let toDo = {
         id: uuid(),
         name,
         creationDate: moment().toDate(),
         description,
       }
-      debugger;
+      setToDo(toDo)
       await ACTION_CREATE_TO_DO(toDo)
     }
 
+    useEffect(()=>{
+      GET_TO_DOS_ACTION()
+    },[toDo])
 
   return(
     <>

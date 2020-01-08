@@ -92,7 +92,6 @@ class FirebaseConfig{
        const deletedTodo = await firebase.firestore().collection('todos').doc(toDoId).delete().catch(err =>{
            console.log(err);
        })
-       console.log('worked')
        return deletedTodo;
     }
 }

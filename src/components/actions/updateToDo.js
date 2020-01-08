@@ -7,8 +7,6 @@ export const updateToDo = (toDoId, toDoData) => {
         if(toDoItems) {
         dispatch({type:'GET_TO_DO', payload: toDoItem})
         } else {
-            // TODO add error handler here.
-            console.log('does not exist')
         }
     }
 }

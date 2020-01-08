@@ -14,7 +14,7 @@ const Spacing= styled.div`
 
 const UpdateToDo = () => {
     const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+    const [description, setDescription] = useState("");
 
     const dispatch= useDispatch();
     const ACTION_UPDATE_TO_DO = (toDoId, toDo) => dispatch(updateToDo(toDoId, toDo));
@@ -22,7 +22,6 @@ const UpdateToDo = () => {
     const updateSelectedToDo = async(e) => {
       e.preventDefault();
       let toDo = {
-        id: toDoId,
         creationDate: moment().toDate(),
         description,
       }

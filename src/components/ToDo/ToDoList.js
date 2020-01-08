@@ -3,7 +3,6 @@ import { Container, Col, Row } from 'styled-bootstrap-grid';
 import styled from 'styled-components';
 import {useSelector, useDispatch } from 'react-redux';
 
-
 import { getToDos } from '../actions/getToDos';
 import{ formattedDate } from '../dateUtil';
 import { deleteToDo} from '../actions/deleteToDo';
@@ -11,7 +10,6 @@ import { deleteToDo} from '../actions/deleteToDo';
 import Navigation from '../userAuthentication/Navigation';
 import CreateToDo from './CreateToDo';
 import UpdateToDo from './UpdateToDo';
-
 
 
 const StyledToDoListContainer= styled.div`
@@ -39,7 +37,6 @@ const Separator = styled.div`
 
 
 export default function TodoList() {
-
   const getToDosSelector = useSelector((state)=> state.getToDos)
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch()
@@ -51,13 +48,13 @@ export default function TodoList() {
   }
 
   const deleteSelectedToDo = async(toDoId) =>{
-  setShowModal()
-  await DELETE_TO_DO_ACTION(toDoId);
+    setShowModal()
+    await DELETE_TO_DO_ACTION(toDoId);
+    GET_TO_DOS_ACTION()
 }
 
   useEffect(() => {
     GET_TO_DOS_ACTION()
-    // need to triger re-render when array is updated
   },[])
 
   return(
